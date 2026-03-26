@@ -1,1 +1,1186 @@
-Hello
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style>
+    .del {
+      background: #fcd0e0;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .ins {
+      background: #c4e5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    /* Filter buttons */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: #fff;
+      border: 1.5px solid #dee2e6;
+      color: #555;
+      padding: 5px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-btn:hover {
+      border-color: #6c63ff;
+      color: #333;
+    }
+
+    .filter-btn.active {
+      background: #6c63ff;
+      border-color: #6c63ff;
+      color: #fff;
+    }
+
+    /* Task tag */
+    .task-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .task-cnen_mix {
+      background: #e8edff;
+      color: #4a5acb;
+    }
+
+    .task-decrease {
+      background: #fff0e8;
+      color: #c56a32;
+    }
+
+    .task-increase {
+      background: #e4f8ed;
+      color: #2a8a56;
+    }
+
+    .task-keep_quantity_full_changes {
+      background: #f3e8ff;
+      color: #8a4acb;
+    }
+
+    .task-keep_quantity_partial_changes {
+      background: #fff8e1;
+      color: #a68a2a;
+    }
+
+    .task-translate {
+      background: #e1f5fe;
+      color: #2a7a9f;
+    }
+
+    /* Header badges and author info */
+    .header-content {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    .header-content h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 1.2rem;
+    }
+
+    .badge-row img {
+      height: 20px;
+    }
+
+    .author-info {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 0.3rem;
+    }
+
+    .author-info a {
+      color: #333;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    .author-info a:hover {
+      text-decoration: underline;
+    }
+
+    .affiliation-info {
+      font-size: 0.88rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <title>YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and Annotation-free
+    Melody Guidance</title>
+  <meta name="generator" content="Jekyll v3.9.0">
+  <meta property="og:title"
+    content="YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and Annotation-free Melody Guidance">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2d0fa">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1001.0" data-gr-ext-installed="">
+  <section class="page-header">
+
+  </section>
+
+  <section class="main-content">
+
+    <!-- ==================== Title, Badges & Authors ==================== -->
+    <div class="header-content">
+      <h1 id="">🎤 YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and
+        Annotation-free Melody Guidance</h1>
+
+      <div class="badge-row">
+        <img src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white" alt="Python">
+        <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey" alt="License">
+      </div>
+
+      <div class="badge-row">
+        <a href="https://arxiv.org/abs/2603.24589"><img src="https://img.shields.io/badge/arXiv-2603.24589-b31b1b?logo=arxiv&logoColor=white" alt="arXiv Paper"></a>
+        <a href="https://github.com/ASLP-lab/YingMusic-Singer"><img src="https://img.shields.io/badge/GitHub-YingMusic--Singer-181717?logo=github&logoColor=white" alt="GitHub"></a>
+        <a href="https://aslp-lab.github.io/YingMusic-Singer-Demo/"><img src="https://img.shields.io/badge/GitHub-Demo--Page-8A2BE2?logo=github&logoColor=white&labelColor=181717" alt="Demo Page"></a>
+        <a href="https://huggingface.co/spaces/ASLP-lab/YingMusic-Singer"><img src="https://img.shields.io/badge/🤗%20HuggingFace-Space-FFD21E" alt="HuggingFace Space"></a>
+        <a href="https://huggingface.co/ASLP-lab/YingMusic-Singer"><img src="https://img.shields.io/badge/🤗%20HuggingFace-Model-FF9D00" alt="HuggingFace Model"></a>
+        <a href="https://huggingface.co/datasets/ASLP-lab/LyricEditBench"><img src="https://img.shields.io/badge/🤗%20HuggingFace-LyricEditBench-FF6F00" alt="Dataset LyricEditBench"></a>
+        <a href="https://discord.gg/RXghgWyvrn"><img src="https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
+        <a href="https://github.com/ASLP-lab/YingMusic-Singer/blob/main/assets/wechat_qr.png"><img src="https://img.shields.io/badge/WeChat-Group-07C160?logo=wechat&logoColor=white" alt="WeChat"></a>
+        <a href="http://www.npu-aslp.org/"><img src="https://img.shields.io/badge/🏫%20ASLP-Lab-4A90D9" alt="Lab"></a>
+      </div>
+
+      <p class="author-info">
+        <a href="https://orcid.org/0009-0005-5957-8936">Chunbo Hao</a><sup>1,2</sup> ·
+        <a href="https://orcid.org/0009-0003-2602-2910">Junjie Zheng</a><sup>2</sup> ·
+        <a href="https://orcid.org/0009-0001-6706-0572">Guobin Ma</a><sup>1</sup> ·
+        Yuepeng Jiang<sup>1</sup> ·
+        Huakang Chen<sup>1</sup> ·
+        Wenjie Tian<sup>1</sup> ·
+        <a href="https://orcid.org/0009-0003-9258-4006">Gongyu Chen</a><sup>2</sup> ·
+        <a href="https://orcid.org/0009-0005-5413-6725">Zihao Chen</a><sup>2</sup> ·
+        Lei Xie<sup>1</sup>
+      </p>
+      <p class="affiliation-info">
+        <sup>1</sup> Audio, Speech and Language Processing Group (ASLP@NPU), School of Computer Science, Northwestern Polytechnical University, China<br>
+        <sup>2</sup> AI Lab, GiantNetwork, China
+      </p>
+    </div>
+
+    <!-- ==================== Abstract ==================== -->
+    <h2 id="abstract" style="text-align: center;">Abstract<a name="abstract"></a></h2>
+
+    <p style="text-align: justify;">
+      Regenerating singing voices with altered lyrics while preserving melody consistency remains challenging, as
+      existing methods either offer limited controllability or require laborious manual alignment. We propose
+      YingMusic-Singer, a fully diffusion-based model enabling melody-controllable singing voice synthesis with flexible
+      lyric manipulation. The model takes three inputs: an optional timbre reference, a melody-providing singing clip,
+      and modified lyrics, without manual alignment. Trained with curriculum learning and Group Relative Policy
+      Optimization, YingMusic-Singer achieves stronger melody preservation and lyric adherence than Vevo2, the most
+      comparable baseline supporting melody control without manual alignment. We also introduce LyricEditBench, the
+      first benchmark for melody-preserving lyric modification evaluation. Code, weights, and the benchmark will be
+      publicly released, with demos available at <a href="https://anonymous.4open.science/w/YingMusic-Singer">
+        https://anonymous.4open.science/w/YingMusic-Singer</a>.
+    </p>
+
+    <br><br>
+    <style>
+      figure {
+        text-align: center;
+        margin: 0;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      figcaption {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .gallery {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+    <figure>
+      <img src="figs/YingMusic-Singer.drawio.svg" alt="model" width="1000" height="800">
+    </figure>
+    <br><br>
+
+    <!-- ==================== Sing Edit Section ==================== -->
+    <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+      <h2 style="text-align: center;">Sing Edit</h2>
+      <p style="text-align: justify;">
+        The model should preserve the melody from the <i>Original Melody</i>, match the timbre of the <i>Timbre
+          Reference</i>, and faithfully render the <i>Modified Lyrics</i>.
+      </p>
+
+      <!-- Filter Buttons for Sing Edit -->
+      <div class="filter-bar" id="filter-bar-sing-edit">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="cnen_mix">CN-EN Mix</button>
+        <button class="filter-btn" data-filter="decrease">Decrease</button>
+        <button class="filter-btn" data-filter="increase">Increase</button>
+        <button class="filter-btn" data-filter="keep_quantity_full_changes">Full Changes</button>
+        <button class="filter-btn" data-filter="keep_quantity_partial_changes">Partial Changes</button>
+        <button class="filter-btn" data-filter="translate">Translate</button>
+      </div>
+
+      <div class="table-responsive pt-3">
+        <table class="table table-hover pt-2">
+          <thead>
+            <tr>
+              <th style="text-align: center">Original Language</th>
+              <th style="text-align: center">Edit Task</th>
+              <th style="text-align: center">Original Melody</th>
+              <th style="text-align: center">Timbre Reference</th>
+              <th style="text-align: center">Original Lyrics</th>
+              <th style="text-align: center">Modified Lyrics</th>
+              <th style="text-align: center">Vevo<a href="#ref1"><sup>[1]</sup></a></th>
+              <th style="text-align: center">Ours</th>
+            </tr>
+          </thead>
+          <tbody id="sing-edit-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== Melody Control Section ==================== -->
+    <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+      <h2 style="text-align: center;">Melody Control</h2>
+      <p style="text-align: justify;">
+        The model should preserve the melody from the <i>Original Melody</i>, match the timbre of the <i>Timbre
+          Reference</i>, and faithfully render the <i>Modified Lyrics</i>.
+      </p>
+
+      <!-- Filter Buttons for Melody Control -->
+      <div class="filter-bar" id="filter-bar-melody-control">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="cnen_mix">CN-EN Mix</button>
+        <button class="filter-btn" data-filter="decrease">Decrease</button>
+        <button class="filter-btn" data-filter="increase">Increase</button>
+        <button class="filter-btn" data-filter="keep_quantity_full_changes">Full Changes</button>
+        <button class="filter-btn" data-filter="keep_quantity_partial_changes">Partial Changes</button>
+        <button class="filter-btn" data-filter="translate">Translate</button>
+      </div>
+
+      <div class="table-responsive pt-3">
+        <table class="table table-hover pt-2">
+          <thead>
+            <tr>
+              <th style="text-align: center">Original Language</th>
+              <th style="text-align: center">Edit Task</th>
+              <th style="text-align: center">Original Melody</th>
+              <th style="text-align: center">Timbre Reference</th>
+              <th style="text-align: center">Original Lyrics</th>
+              <th style="text-align: center">Modified Lyrics</th>
+              <th style="text-align: center">Vevo<a href="#ref1"><sup>[1]</sup></a></th>
+              <th style="text-align: center">Ours</th>
+            </tr>
+          </thead>
+          <tbody id="melody-control-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="Ethics-statement" style="text-align: center;">Ethics Statement<a name="Ethics Statement"></a></h2>
+    <p style="text-align: justify;">
+      YingMusic-Singer enables the creation of singing voices with modified lyrics, supporting applications in artistic
+      creation and entertainment. Potential risks include unauthorized voice cloning and copyright infringement. To
+      ensure responsible deployment, users should obtain consent for voice usage, disclose AI involvement, and verify
+      musical originality.
+    </p>
+    <h2 id="Ethics-statement" style="text-align: center;">Reference<a name="Reference"></a></h2>
+    <p style="text-align: justify;">
+    <p id="ref1">[1] X. Zhang, J. Zhang, Y. Wang, C. Wang, Y. Chen, D. Jia,
+      Z. Chen, and Z. Wu, "Vevo2: A unified and controllable framework for speech and singing voice generation," CoRR,
+      vol.abs/2508.16332, 2025.
+    </p>
+    </p>
+</body>
+
+</html>
+  </section>
+      <!-- {
+        "id": "ZH-Tenor-1_Mixed_Voice_and_Falsetto_过火_Falsetto_Group_0024_cnen_mix",
+        "original_language": "ZH",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_过火_Falsetto_Group_0024.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_过火_Falsetto_Group_0024.wav",
+        "original_lyrics": "受折磨|是我给你自由过了火|如果|你想飞|伤痛我背",
+        "modified_lyrics": "受折磨|是我给你 freedom 过了火|如果|you want to fly|伤痛 I'll bear",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Mixed_Voice_and_Falsetto_过火_Falsetto_Group_0024_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Mixed_Voice_and_Falsetto_过火_Falsetto_Group_0024_cnen_mix_ours.wav"
+      }, -->
+  <script>
+    const DATA_Sing_Edit = [
+      {
+        "id": "ZH-Alto-1_Breathy_给电影人的情书_Breathy_Group_0007_cnen_mix",
+        "original_language": "ZH",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Breathy_给电影人的情书_Breathy_Group_0007.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Breathy_给电影人的情书_Breathy_Group_0007.wav",
+        "original_lyrics": "何悲何哀|何必去愁与苦|何必笑骂恨与爱",
+        "modified_lyrics": "何悲何哀|no need to 愁与苦|no need to 笑骂恨与爱",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Breathy_给电影人的情书_Breathy_Group_0007_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Breathy_给电影人的情书_Breathy_Group_0007_cnen_mix_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Pharyngeal_亲爱的那不是爱情_Pharyngeal_Group_0002_cnen_mix",
+        "original_language": "ZH",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_亲爱的那不是爱情_Pharyngeal_Group_0002.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_亲爱的那不是爱情_Pharyngeal_Group_0002.wav",
+        "original_lyrics": "太美的承诺因为太年轻|但亲爱的那并不是爱情",
+        "modified_lyrics": "太美的承诺 because 太年轻|但亲爱的 that is not 爱情",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_亲爱的那不是爱情_Pharyngeal_Group_0002_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_亲爱的那不是爱情_Pharyngeal_Group_0002_cnen_mix_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Pharyngeal_大鱼_Pharyngeal_Group_0015_decrease",
+        "original_language": "ZH",
+        "edit_task": "decrease",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_大鱼_Pharyngeal_Group_0015.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_大鱼_Pharyngeal_Group_0015.wav",
+        "original_lyrics": "倒流回|最初的相遇",
+        "modified_lyrics": "倒流回|最初相遇",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_大鱼_Pharyngeal_Group_0015_decrease_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_大鱼_Pharyngeal_Group_0015_decrease_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0011_decrease",
+        "original_language": "ZH",
+        "edit_task": "decrease",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0011.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0011.wav",
+        "original_lyrics": "歌声是翅膀|唱出了希望|所有的付出只因爱的力量",
+        "modified_lyrics": "歌声是翅膀|唱出希望|所有的付出因爱的力量",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0011_decrease_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0011_decrease_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_时间煮雨_Falsetto_Group_0005_decrease",
+        "original_language": "ZH",
+        "edit_task": "decrease",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_时间煮雨_Falsetto_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_时间煮雨_Falsetto_Group_0005.wav",
+        "original_lyrics": "荒唐我不负你|大雪求你别抹去",
+        "modified_lyrics": "荒唐不负你|大雪别抹去",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Mixed_Voice_and_Falsetto_时间煮雨_Falsetto_Group_0005_decrease_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Mixed_Voice_and_Falsetto_时间煮雨_Falsetto_Group_0005_decrease_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_借_Breathy_Group_0003_increase",
+        "original_language": "ZH",
+        "edit_task": "increase",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_借_Breathy_Group_0003.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_借_Breathy_Group_0003.wav",
+        "original_lyrics": "借一段往日旋律婉转悠扬|把这不能说的轻轻唱",
+        "modified_lyrics": "借一段往日旋律婉转悠扬|把这不能说的心事轻轻唱",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_借_Breathy_Group_0003_increase_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_借_Breathy_Group_0003_increase_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_像我这样的人_Breathy_Group_0005_increase",
+        "original_language": "ZH",
+        "edit_task": "increase",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_像我这样的人_Breathy_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_像我这样的人_Breathy_Group_0005.wav",
+        "original_lyrics": "像我这样碌碌无为的人|你还见过多少人",
+        "modified_lyrics": "像我这样碌碌无为的人|你还见过多少红着脸",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_像我这样的人_Breathy_Group_0005_increase_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_像我这样的人_Breathy_Group_0005_increase_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Breathy_走马_Breathy_Group_0005_keep_quantity_full_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Breathy_走马_Breathy_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Breathy_走马_Breathy_Group_0005.wav",
+        "original_lyrics": "太多|都散落散落太多|好难过|难过时你走了|走了走了|走了",
+        "modified_lyrics": "很短|只短暂短暂很短|很深刻|深刻时天亮了|亮了亮了|亮了",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Breathy_走马_Breathy_Group_0005_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Breathy_走马_Breathy_Group_0005_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_勇气_Breathy_Group_0003_keep_quantity_full_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_勇气_Breathy_Group_0003.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_勇气_Breathy_Group_0003.wav",
+        "original_lyrics": "爱真的需要勇气|来面对流言蜚语",
+        "modified_lyrics": "故事值得被铭记|以对抗岁月痕迹",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_勇气_Breathy_Group_0003_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_勇气_Breathy_Group_0003_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Glissando_青花瓷_Control_Group_0006_keep_quantity_partial_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Glissando_青花瓷_Control_Group_0006.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Glissando_青花瓷_Control_Group_0006.wav",
+        "original_lyrics": "天青色等烟雨|而我在等你|月色被打捞起",
+        "modified_lyrics": "天空蓝盼晨曦|而我在盼你|霞光被收集起",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Glissando_青花瓷_Control_Group_0006_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Glissando_青花瓷_Control_Group_0006_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0003_keep_quantity_partial_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0003.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0003.wav",
+        "original_lyrics": "歌声是翅膀|唱出了希望|所有的付出只因爱的力量|和你一样",
+        "modified_lyrics": "火锅是梦想|煮出了欢畅|全部的辛劳全因肉的力量|与汤一样",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0003_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_和你一样_Breathy_Group_0003_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Glissando_我的歌声里_Control_Group_0003_keep_quantity_partial_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Glissando_我的歌声里_Control_Group_0003.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Glissando_我的歌声里_Control_Group_0003.wav",
+        "original_lyrics": "还记得我们曾经肩并肩一起走过那段繁华巷口",
+        "modified_lyrics": "还记得我们曾经手牵手一起跑过那片金黄操场",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Glissando_我的歌声里_Control_Group_0003_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Glissando_我的歌声里_Control_Group_0003_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Pharyngeal_我好想你_Control_Group_0005_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_我好想你_Control_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Pharyngeal_我好想你_Control_Group_0005.wav",
+        "original_lyrics": "随梦境睡去|随麻痹的心逐渐远去",
+        "modified_lyrics": "In dreams I sleep|with a numb heart that's fading away.",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_我好想你_Control_Group_0005_translate_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Pharyngeal_我好想你_Control_Group_0005_translate_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_平凡的一天_Control_Group_0009_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_平凡的一天_Control_Group_0009.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Tenor-1_Breathy_平凡的一天_Control_Group_0009.wav",
+        "original_lyrics": "餐桌摆在开满花的|院子里|微微酒意阵阵欢歌笑语",
+        "modified_lyrics": "Dinner table set in the flower-filled|courtyard|gentle wine buzz bursts of laughter and singing",
+        "vevo_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_平凡的一天_Control_Group_0009_translate_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Tenor-1_Breathy_平凡的一天_Control_Group_0009_translate_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_贝加尔湖畔_Control_Group_0000_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/sing_edit/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_贝加尔湖畔_Control_Group_0000.wav",
+        "timbre_reference": "wavs/sing_edit/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_贝加尔湖畔_Control_Group_0000.wav",
+        "original_lyrics": "在我的怀里|在你的眼里",
+        "modified_lyrics": "In my embrace|within your sight",
+        "vevo_path": "wavs/sing_edit/ZH-Alto-1_Mixed_Voice_and_Falsetto_贝加尔湖畔_Control_Group_0000_translate_vevo.wav",
+        "ours_path": "wavs/sing_edit/ZH-Alto-1_Mixed_Voice_and_Falsetto_贝加尔湖畔_Control_Group_0000_translate_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Mixed_Voice_and_Falsetto_Call_Out_My_Name_Control_Group_0001_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/English_EN-Tenor-1_Mixed_Voice_and_Falsetto_Call_Out_My_Name_Control_Group_0001.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Tenor-1_Mixed_Voice_and_Falsetto_Call_Out_My_Name_Control_Group_0001.wav",
+        "original_lyrics": "you gave me comfort|but falling for you was my mistake",
+        "modified_lyrics": "you gave me 安慰|但 falling for you 是我 mistake",
+        "vevo_path": "wavs/sing_edit/EN-Tenor-1_Mixed_Voice_and_Falsetto_Call_Out_My_Name_Control_Group_0001_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Tenor-1_Mixed_Voice_and_Falsetto_Call_Out_My_Name_Control_Group_0001_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Breathy_who_says_Breathy_Group_0010_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Breathy_who_says_Breathy_Group_0010.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Breathy_who_says_Breathy_Group_0010.wav",
+        "original_lyrics": "that never gets to see the light|keep you beneath the stars|won't let you touch the sky",
+        "modified_lyrics": "that never gets to see the light|keep you 在星空之下|won't let you 触摸 the sky",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Breathy_who_says_Breathy_Group_0010_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Breathy_who_says_Breathy_Group_0010_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0010_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0010.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0010.wav",
+        "original_lyrics": "and the fears that once controlled me|can't get to me at all",
+        "modified_lyrics": "and the fears that once 控制了我|can't get to me at all",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0010_cnen_mix_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0010_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Mixed_Voice_Group_0016_decrease",
+        "original_language": "EN",
+        "edit_task": "decrease",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Mixed_Voice_Group_0016.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Mixed_Voice_Group_0016.wav",
+        "original_lyrics": "my power flurries through the air into the ground",
+        "modified_lyrics": "my flurries through the air into ground",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Mixed_Voice_Group_0016_decrease_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Mixed_Voice_Group_0016_decrease_ours.wav"
+      },
+      {
+        "id": "EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Falsetto_Group_0002_decrease",
+        "original_language": "EN",
+        "edit_task": "decrease",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Falsetto_Group_0002.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Falsetto_Group_0002.wav",
+        "original_lyrics": "remember|to let her into your heart|then you can start",
+        "modified_lyrics": "remember|let her in your heart|then start",
+        "vevo_path": "wavs/sing_edit/EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Falsetto_Group_0002_decrease_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Falsetto_Group_0002_decrease_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Falsetto_Group_0017_increase",
+        "original_language": "EN",
+        "edit_task": "increase",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Falsetto_Group_0017.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Falsetto_Group_0017.wav",
+        "original_lyrics": "we had joy we had fun we had seasons in the sun|but the stars we could reach",
+        "modified_lyrics": "we had joy we had fun we had wonderful seasons in the sun|but the stars we could never reach",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Falsetto_Group_0017_increase_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Falsetto_Group_0017_increase_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Breathy_I_Knew_You_Were_Trouble_Control_Group_0004_increase",
+        "original_language": "EN",
+        "edit_task": "increase",
+        "original_melody": "wavs/sing_edit/English_EN-Tenor-1_Breathy_I_Knew_You_Were_Trouble_Control_Group_0004.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Tenor-1_Breathy_I_Knew_You_Were_Trouble_Control_Group_0004.wav",
+        "original_lyrics": "and he's long gone when he's next to me|and I realize the blame is on me",
+        "modified_lyrics": "and he's long gone when he's next to me|and I deeply realize the blame is on me",
+        "vevo_path": "wavs/sing_edit/EN-Tenor-1_Breathy_I_Knew_You_Were_Trouble_Control_Group_0004_increase_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Tenor-1_Breathy_I_Knew_You_Were_Trouble_Control_Group_0004_increase_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0008_keep_quantity_full_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0008.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0008.wav",
+        "original_lyrics": "then when the shadows overtake us|just when we feel all hope is gone",
+        "modified_lyrics": "now that the morning light has come|just as our spirits start to rise",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0008_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0008_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Pharyngeal_tell_me_that_you_love_me_Control_Group_0006_keep_quantity_full_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Pharyngeal_tell_me_that_you_love_me_Control_Group_0006.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Pharyngeal_tell_me_that_you_love_me_Control_Group_0006.wav",
+        "original_lyrics": "i can hear what you say|now i know|why know we can|make it",
+        "modified_lyrics": "i can see where you go|but i say|why not we will|break it",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Pharyngeal_tell_me_that_you_love_me_Control_Group_0006_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Pharyngeal_tell_me_that_you_love_me_Control_Group_0006_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Control_Group_0007_keep_quantity_full_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Control_Group_0007.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Control_Group_0007.wav",
+        "original_lyrics": "remember us this way|oh yeah",
+        "modified_lyrics": "forget our past tonight|no no",
+        "vevo_path": "wavs/sing_edit/EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Control_Group_0007_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Control_Group_0007_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Breathy_who_says_Control_Group_0009_keep_quantity_partial_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Breathy_who_says_Control_Group_0009.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Breathy_who_says_Control_Group_0009.wav",
+        "original_lyrics": "you tell them what you mean|but they keep whiting out the truth|it's like the work of art",
+        "modified_lyrics": "you show them how you feel|but they keep painting in the lie|it's like the world of dreams",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Breathy_who_says_Control_Group_0009_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Breathy_who_says_Control_Group_0009_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Vibrato_if_you_love_me_for_me_Control_Group_0006_keep_quantity_partial_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Vibrato_if_you_love_me_for_me_Control_Group_0006.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Vibrato_if_you_love_me_for_me_Control_Group_0006.wav",
+        "original_lyrics": "can you tell my heart is speaking|my eyes will give you clues",
+        "modified_lyrics": "can you spot the moon is grinning|my lips will show you hints",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Vibrato_if_you_love_me_for_me_Control_Group_0006_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Vibrato_if_you_love_me_for_me_Control_Group_0006_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Breathy_Stay_Control_Group_0010_keep_quantity_partial_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/sing_edit/English_EN-Tenor-1_Breathy_Stay_Control_Group_0010.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Tenor-1_Breathy_Stay_Control_Group_0010.wav",
+        "original_lyrics": "i want you to stay",
+        "modified_lyrics": "i wish you to leave",
+        "vevo_path": "wavs/sing_edit/EN-Tenor-1_Breathy_Stay_Control_Group_0010_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Tenor-1_Breathy_Stay_Control_Group_0010_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Breathy_let_it_go_Control_Group_0005_translate",
+        "original_language": "EN",
+        "edit_task": "translate",
+        "original_melody": "wavs/sing_edit/English_EN-Alto-1_Breathy_let_it_go_Control_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Alto-1_Breathy_let_it_go_Control_Group_0005.wav",
+        "original_lyrics": "let it go|let it go|can't hurt back any more",
+        "modified_lyrics": "随它去|随它去|不会再受伤",
+        "vevo_path": "wavs/sing_edit/EN-Alto-1_Breathy_let_it_go_Control_Group_0005_translate_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Alto-1_Breathy_let_it_go_Control_Group_0005_translate_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Glissando_I_Knew_You_Were_Trouble_Control_Group_0005_translate",
+        "original_language": "EN",
+        "edit_task": "translate",
+        "original_melody": "wavs/sing_edit/English_EN-Tenor-1_Glissando_I_Knew_You_Were_Trouble_Control_Group_0005.wav",
+        "timbre_reference": "wavs/sing_edit/English_EN-Tenor-1_Glissando_I_Knew_You_Were_Trouble_Control_Group_0005.wav",
+        "original_lyrics": "and i realize|the blame is on me",
+        "modified_lyrics": "而我认识到|错在于我",
+        "vevo_path": "wavs/sing_edit/EN-Tenor-1_Glissando_I_Knew_You_Were_Trouble_Control_Group_0005_translate_vevo.wav",
+        "ours_path": "wavs/sing_edit/EN-Tenor-1_Glissando_I_Knew_You_Were_Trouble_Control_Group_0005_translate_ours.wav"
+      },
+    ];
+
+    const DATA_Melody_Control = [
+      {
+        "id": "ZH-Tenor-1_Glissando_魔鬼中的天使_Control_Group_0012_cnen_mix",
+        "original_language": "ZH",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Glissando_魔鬼中的天使_Control_Group_0012.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_走着走着就散了_Falsetto_Group_0012.wav",
+        "original_lyrics": "你是魔鬼中的天使所以送我心碎的方式",
+        "modified_lyrics": "你 are the angel in devil 所以送我心碎的方式",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Glissando_魔鬼中的天使_Control_Group_0012_cnen_mix_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Glissando_魔鬼中的天使_Control_Group_0012_cnen_mix_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_平凡的一天_Control_Group_0003_cnen_mix",
+        "original_language": "ZH",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_平凡的一天_Control_Group_0003.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Vibrato_我只在乎你_Vibrato_Group_0006.wav",
+        "original_lyrics": "不用太久就能走到目的地|人来人往里满是善意",
+        "modified_lyrics": "不用太久就能走到目的地|in the crowd full of kindness",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_平凡的一天_Control_Group_0003_cnen_mix_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_平凡的一天_Control_Group_0003_cnen_mix_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Glissando_如果爱忘了_Glissando_Group_0007_decrease",
+        "original_language": "ZH",
+        "edit_task": "decrease",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Glissando_如果爱忘了_Glissando_Group_0007.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0004.wav",
+        "original_lyrics": "总有些牵挂|旧的像伤疤",
+        "modified_lyrics": "有些牵挂|旧像伤疤",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Glissando_如果爱忘了_Glissando_Group_0007_decrease_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Glissando_如果爱忘了_Glissando_Group_0007_decrease_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_时间都去哪儿了_Breathy_Group_0002_decrease",
+        "original_language": "ZH",
+        "edit_task": "decrease",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Breathy_时间都去哪儿了_Breathy_Group_0002.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Alto-1_Glissando_水星记_Control_Group_0000.wav",
+        "original_lyrics": "时间都去哪了|还没好好看看你",
+        "modified_lyrics": "时间去哪了|还没好好看你",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Breathy_时间都去哪儿了_Breathy_Group_0002_decrease_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Breathy_时间都去哪儿了_Breathy_Group_0002_decrease_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Breathy_如果爱忘了_Breathy_Group_0003_increase",
+        "original_language": "ZH",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Breathy_如果爱忘了_Breathy_Group_0003.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Alto-1_Pharyngeal_你就不要想起我_Pharyngeal_Group_0003.wav",
+        "original_lyrics": "如果爱忘了|泪不想落下",
+        "modified_lyrics": "如果爱忘了我|泪不想轻易落下",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Breathy_如果爱忘了_Breathy_Group_0003_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Breathy_如果爱忘了_Breathy_Group_0003_increase_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0001_increase",
+        "original_language": "ZH",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0001.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_青花瓷_Falsetto_Group_0011.wav",
+        "original_lyrics": "你年少掌心的梦话|依然紧握|着吗",
+        "modified_lyrics": "你年少掌心的梦话|依然紧握在|我心里吗",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0001_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0001_increase_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Breathy_匆匆那年_Breathy_Group_0001_increase",
+        "original_language": "ZH",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Breathy_匆匆那年_Breathy_Group_0001.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Glissando_不染_Glissando_Group_0023.wav",
+        "original_lyrics": "匆匆那年我们一时匆忙搁下难以承受的诺言|只有等别人兑现",
+        "modified_lyrics": "匆匆那年我们一时匆忙搁下难以承受的诺言|只有等别人来替你兑现",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Breathy_匆匆那年_Breathy_Group_0001_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Breathy_匆匆那年_Breathy_Group_0001_increase_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Vibrato_贝加尔湖畔_Vibrato_Group_0007_keep_quantity_full_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Vibrato_贝加尔湖畔_Vibrato_Group_0007.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Pharyngeal_唯一_Pharyngeal_Group_0009.wav",
+        "original_lyrics": "我们流连忘返|在贝加尔湖畔",
+        "modified_lyrics": "我的思绪纷飞|于辽阔草原上",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Vibrato_贝加尔湖畔_Vibrato_Group_0007_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Vibrato_贝加尔湖畔_Vibrato_Group_0007_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0003_keep_quantity_full_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0003.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_偏爱_Falsetto_Group_0001.wav",
+        "original_lyrics": "这条路上的你我他|有谁迷路|了吗",
+        "modified_lyrics": "这座山下的花草树|谁没看见|罢了",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0003_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Glissando_时间煮雨_Glissando_Group_0003_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Control_Group_0014_keep_quantity_full_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Control_Group_0014.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_想自由_Falsetto_Group_0005.wav",
+        "original_lyrics": "那时陪伴我的人啊|你们如今在何方",
+        "modified_lyrics": "此刻记忆中的点滴|能否再次被珍藏",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Control_Group_0014_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Control_Group_0014_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_亲爱的那不是爱情_Falsetto_Group_0003_keep_quantity_partial_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_亲爱的那不是爱情_Falsetto_Group_0003.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Vibrato_水星记_Vibrato_Group_0005.wav",
+        "original_lyrics": "那温热的牛奶瓶在我手中握紧|有你在的地方我总感觉很窝心",
+        "modified_lyrics": "那冰凉的奶茶杯在你手中抓紧|没你去的角落我总是觉得开心",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_亲爱的那不是爱情_Falsetto_Group_0003_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_亲爱的那不是爱情_Falsetto_Group_0003_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Falsetto_Group_0010_keep_quantity_partial_changes",
+        "original_language": "ZH",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Falsetto_Group_0010.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Vibrato_红玫瑰_Control_Group_0014.wav",
+        "original_lyrics": "转眼过去多少时间|多少离合悲欢",
+        "modified_lyrics": "忽然翻看多少照片|多少往事思绪",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Falsetto_Group_0010_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_老男孩_Falsetto_Group_0010_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Pharyngeal_传奇_Pharyngeal_Group_0010_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Pharyngeal_传奇_Pharyngeal_Group_0010.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Alto-1_Vibrato_画心_Control_Group_0007.wav",
+        "original_lyrics": "想你时你在脑海|想你时你在心田",
+        "modified_lyrics": "Missing you in my mind|missing you in my heart.",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Pharyngeal_传奇_Pharyngeal_Group_0010_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Pharyngeal_传奇_Pharyngeal_Group_0010_translate_ours.wav"
+      },
+      {
+        "id": "ZH-Alto-1_Mixed_Voice_and_Falsetto_我喜欢上你时的内心活动_Falsetto_Group_0015_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Alto-1_Mixed_Voice_and_Falsetto_我喜欢上你时的内心活动_Falsetto_Group_0015.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Pharyngeal_交换余生_Control_Group_0015.wav",
+        "original_lyrics": "那座桥断了|我们还去吗",
+        "modified_lyrics": "That bridge has fallen|shall we go still?",
+        "vevo_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_我喜欢上你时的内心活动_Falsetto_Group_0015_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Alto-1_Mixed_Voice_and_Falsetto_我喜欢上你时的内心活动_Falsetto_Group_0015_translate_ours.wav"
+      },
+      {
+        "id": "ZH-Tenor-1_Mixed_Voice_and_Falsetto_终于等到你_Falsetto_Group_0004_translate",
+        "original_language": "ZH",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_终于等到你_Falsetto_Group_0004.wav",
+        "timbre_reference": "wavs/melody_control/Chinese_ZH-Tenor-1_Mixed_Voice_and_Falsetto_全世界谁倾听你_Falsetto_Group_0011.wav",
+        "original_lyrics": "终于等到你|还好我没放弃",
+        "modified_lyrics": "Finally you're here|and I never gave up on you",
+        "vevo_path": "wavs/melody_control/ZH-Tenor-1_Mixed_Voice_and_Falsetto_终于等到你_Falsetto_Group_0004_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/ZH-Tenor-1_Mixed_Voice_and_Falsetto_终于等到你_Falsetto_Group_0004_translate_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Pharyngeal_I_Knew_You_Were_Trouble_Pharyngeal_Group_0001_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Pharyngeal_I_Knew_You_Were_Trouble_Pharyngeal_Group_0001.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-1_Pharyngeal_monsters_Control_Group_0003.wav",
+        "original_lyrics": "you found me|you found me|you found me",
+        "modified_lyrics": "你 found me|you found me|你 found me",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Pharyngeal_I_Knew_You_Were_Trouble_Pharyngeal_Group_0001_cnen_mix_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Pharyngeal_I_Knew_You_Were_Trouble_Pharyngeal_Group_0001_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Mixed_Voice_Group_0002_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Mixed_Voice_Group_0002.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_All_of_Me_Falsetto_Group_0003.wav",
+        "original_lyrics": "but i can see us lost in the memory august slipped away into a moment in time",
+        "modified_lyrics": "but i can see us lost in the 记忆 august slipped away into a 瞬间 in time",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Mixed_Voice_Group_0002_cnen_mix_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Mixed_Voice_Group_0002_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Alto-2_Mixed_Voice_and_Falsetto_Hello_Mixed_Voice_Group_0006_cnen_mix",
+        "original_language": "EN",
+        "edit_task": "cnen_mix",
+        "original_melody": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_Hello_Mixed_Voice_Group_0006.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Vibrato_Stay_Vibrato_Group_0001.wav",
+        "original_lyrics": "hello from the other side",
+        "modified_lyrics": "hello from the other 一边",
+        "vevo_path": "wavs/melody_control/EN-Alto-2_Mixed_Voice_and_Falsetto_Hello_Mixed_Voice_Group_0006_cnen_mix_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-2_Mixed_Voice_and_Falsetto_Hello_Mixed_Voice_Group_0006_cnen_mix_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Glissando_All_I_Ask_Control_Group_0004_decrease",
+        "original_language": "EN",
+        "edit_task": "decrease",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Glissando_All_I_Ask_Control_Group_0004.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-1_Mixed_Voice_and_Falsetto_yesterday_once_more_Control_Group_0007.wav",
+        "original_lyrics": "get me wrong i know|there is no tomorrow",
+        "modified_lyrics": "get me wrong i know|there is tomorrow",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Glissando_All_I_Ask_Control_Group_0004_decrease_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Glissando_All_I_Ask_Control_Group_0004_decrease_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Pharyngeal_Someone_Like_You_Control_Group_0003_decrease",
+        "original_language": "EN",
+        "edit_task": "decrease",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Pharyngeal_Someone_Like_You_Control_Group_0003.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_God_is_A_Girl_Falsetto_Group_0007.wav",
+        "original_lyrics": "i heard that you've|settled down that you",
+        "modified_lyrics": "heard that you|settled down that you",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Pharyngeal_Someone_Like_You_Control_Group_0003_decrease_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Pharyngeal_Someone_Like_You_Control_Group_0003_decrease_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Glissando_tell_me_that_you_love_me_Control_Group_0010_decrease",
+        "original_language": "EN",
+        "edit_task": "decrease",
+        "original_melody": "wavs/melody_control/English_EN-Alto-1_Glissando_tell_me_that_you_love_me_Control_Group_0010.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Control_Group_0003.wav",
+        "original_lyrics": "show me look what we found|turn it around every day",
+        "modified_lyrics": "show me look found|turn around every day",
+        "vevo_path": "wavs/melody_control/EN-Alto-1_Glissando_tell_me_that_you_love_me_Control_Group_0010_decrease_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-1_Glissando_tell_me_that_you_love_me_Control_Group_0010_decrease_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Vibrato_Group_0005_increase",
+        "original_language": "EN",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Vibrato_Group_0005.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_Hello_Falsetto_Group_0005.wav",
+        "original_lyrics": "every time we say goodbye baby it hurts|when the sun goes down",
+        "modified_lyrics": "every time we say goodbye baby it hurts so deep|when the sun goes down",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Vibrato_Group_0005_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Vibrato_Always_Remember_Us_This_Way_Vibrato_Group_0005_increase_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0023_increase",
+        "original_language": "EN",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/English_EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0023.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Breathy_What_Was_I_Made_For？_Control_Group_0010.wav",
+        "original_lyrics": "let the storm rage on|the cold never bothered me anyway",
+        "modified_lyrics": "let the raging storm blow on|the piercing cold never bothered me anyway",
+        "vevo_path": "wavs/melody_control/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0023_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-1_Mixed_Voice_and_Falsetto_let_it_go_Control_Group_0023_increase_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0015_increase",
+        "original_language": "EN",
+        "edit_task": "increase",
+        "original_melody": "wavs/melody_control/English_EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0015.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Vibrato_You_Belong_With_Me_Control_Group_0001.wav",
+        "original_lyrics": "but when all else has been forgotten|still our song lives on",
+        "modified_lyrics": "but when all our memories have been forgotten|still our favorite song lives on",
+        "vevo_path": "wavs/melody_control/EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0015_increase_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-1_Mixed_Voice_and_Falsetto_how_does_a_moment_last_forever_Control_Group_0015_increase_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Glissando_Stay_Glissando_Group_0005_keep_quantity_full_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Glissando_Stay_Glissando_Group_0005.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_God_is_A_Girl_Mixed_Voice_Group_0003.wav",
+        "original_lyrics": "oh the reason i hold on",
+        "modified_lyrics": "why the river flows so long",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Glissando_Stay_Glissando_Group_0005_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Glissando_Stay_Glissando_Group_0005_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Control_Group_0007_keep_quantity_full_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_full_changes",
+        "original_melody": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Control_Group_0007.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Vibrato_What_Was_I_Made_For？_Control_Group_0007.wav",
+        "original_lyrics": "don't carry the world|upon your shoulders",
+        "modified_lyrics": "won't open the door|and say tomorrow",
+        "vevo_path": "wavs/melody_control/EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Control_Group_0007_keep_quantity_full_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-2_Mixed_Voice_and_Falsetto_Hey_Jude_Control_Group_0007_keep_quantity_full_changes_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Vibrato_Long_Live_Control_Group_0001_keep_quantity_partial_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Vibrato_Long_Live_Control_Group_0001.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Mixed_Voice_and_Falsetto_All_of_Me_Falsetto_Group_0001.wav",
+        "original_lyrics": "the time we stood with our shaking hands the crowds in the stands went wild",
+        "modified_lyrics": "the clock we stood with our trembling paws the mobs in the decks went wild",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Vibrato_Long_Live_Control_Group_0001_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Vibrato_Long_Live_Control_Group_0001_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Glissando_Stay_Glissando_Group_0010_keep_quantity_partial_changes",
+        "original_language": "EN",
+        "edit_task": "keep_quantity_partial_changes",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Glissando_Stay_Glissando_Group_0010.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-2_Vibrato_Easy_On_Me_Vibrato_Group_0004.wav",
+        "original_lyrics": "makes me feel like i can't live without you|it takes me all the way",
+        "modified_lyrics": "makes me feel like i can't paint without you|it moves me all the way",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Glissando_Stay_Glissando_Group_0010_keep_quantity_partial_changes_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Glissando_Stay_Glissando_Group_0010_keep_quantity_partial_changes_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Breathy_innocence_Breathy_Group_0010_translate",
+        "original_language": "EN",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/English_EN-Alto-1_Breathy_innocence_Breathy_Group_0010.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Mixed_Voice_and_Falsetto_August_Falsetto_Group_0000.wav",
+        "original_lyrics": "this is the|best feeling",
+        "modified_lyrics": "这真是|最美妙的感觉",
+        "vevo_path": "wavs/melody_control/EN-Alto-1_Breathy_innocence_Breathy_Group_0010_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-1_Breathy_innocence_Breathy_Group_0010_translate_ours.wav"
+      },
+      {
+        "id": "EN-Alto-1_Breathy_safe_and_sound_Breathy_Group_0004_translate",
+        "original_language": "EN",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/English_EN-Alto-1_Breathy_safe_and_sound_Breathy_Group_0004.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Tenor-1_Vibrato_You_Belong_With_Me_Vibrato_Group_0003.wav",
+        "original_lyrics": "you'll be all right|no one can hurt you now",
+        "modified_lyrics": "你将会安然无恙|无人能再伤你",
+        "vevo_path": "wavs/melody_control/EN-Alto-1_Breathy_safe_and_sound_Breathy_Group_0004_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Alto-1_Breathy_safe_and_sound_Breathy_Group_0004_translate_ours.wav"
+      },
+      {
+        "id": "EN-Tenor-1_Breathy_Shallow_Control_Group_0001_translate",
+        "original_language": "EN",
+        "edit_task": "translate",
+        "original_melody": "wavs/melody_control/English_EN-Tenor-1_Breathy_Shallow_Control_Group_0001.wav",
+        "timbre_reference": "wavs/melody_control/English_EN-Alto-1_Mixed_Voice_and_Falsetto_seasons_in_the_sun_Mixed_Voice_Group_0013.wav",
+        "original_lyrics": "or do you need more is there something else you're searching for",
+        "modified_lyrics": "或者你渴望更多是否还在追寻着什么",
+        "vevo_path": "wavs/melody_control/EN-Tenor-1_Breathy_Shallow_Control_Group_0001_translate_vevo.wav",
+        "ours_path": "wavs/melody_control/EN-Tenor-1_Breathy_Shallow_Control_Group_0001_translate_ours.wav"
+      }
+    ];
+
+    const TASK_LABELS = {
+      cnen_mix: 'CN-EN Mix',
+      decrease: 'Decrease',
+      increase: 'Increase',
+      keep_quantity_full_changes: 'Full Changes',
+      keep_quantity_partial_changes: 'Partial Changes',
+      translate: 'Translate'
+    };
+
+    function diffLyrics(original, modified) {
+      function tokenize(str) {
+        const tokens = [];
+        const re = /\||[a-zA-Z0-9']+|[^\s|a-zA-Z0-9']/g;
+        let m;
+        while ((m = re.exec(str)) !== null) {
+          tokens.push(m[0]);
+        }
+        return tokens;
+      }
+
+      const origTokens = tokenize(original);
+      const modTokens = tokenize(modified);
+      const m = origTokens.length, n = modTokens.length;
+
+      const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+      for (let i = 1; i <= m; i++)
+        for (let j = 1; j <= n; j++)
+          dp[i][j] = origTokens[i - 1] === modTokens[j - 1]
+            ? dp[i - 1][j - 1] + 1
+            : Math.max(dp[i - 1][j], dp[i][j - 1]);
+
+      const ops = [];
+      let i = m, j = n;
+      while (i > 0 || j > 0) {
+        if (i > 0 && j > 0 && origTokens[i - 1] === modTokens[j - 1]) {
+          ops.unshift({ type: 'keep', token: origTokens[i - 1] });
+          i--; j--;
+        } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+          ops.unshift({ type: 'ins', token: modTokens[j - 1] });
+          j--;
+        } else {
+          ops.unshift({ type: 'del', token: origTokens[i - 1] });
+          i--;
+        }
+      }
+
+      function isLatin(tok) { return /^[a-zA-Z0-9']/.test(tok); }
+
+      function buildHtml(filteredOps) {
+        let html = '';
+        let prevType = null;
+        let prevToken = null;
+        for (const op of filteredOps) {
+          if (prevToken !== null && isLatin(prevToken) && isLatin(op.token)) {
+            if (op.type !== prevType) {
+              if (prevType === 'del' || prevType === 'ins') html += '</span>';
+              html += ' ';
+              if (op.type === 'del') html += '<span class="del">';
+              else if (op.type === 'ins') html += '<span class="ins">';
+            } else {
+              html += ' ';
+            }
+          } else if (op.type !== prevType) {
+            if (prevType === 'del' || prevType === 'ins') html += '</span>';
+            if (op.type === 'del') html += '<span class="del">';
+            else if (op.type === 'ins') html += '<span class="ins">';
+          }
+          html += op.token;
+          prevType = op.type;
+          prevToken = op.token;
+        }
+        if (prevType === 'del' || prevType === 'ins') html += '</span>';
+        return html;
+      }
+
+      const origHtml = buildHtml(ops.filter(o => o.type !== 'ins'));
+      const modHtml = buildHtml(ops.filter(o => o.type !== 'del'));
+      return { origHtml, modHtml };
+    }
+
+    function audioCell(src) {
+      return '<audio controls style="width: 125px;"><source src="' + src + '"></audio>';
+    }
+
+    const DEFAULT_SHOW = 3;
+
+    // ==================== Generic section renderer ====================
+    function createSectionController(data, tbodyId, filterBarId) {
+      let currentFilter = 'all';
+      let expanded = false;
+
+      function buildRow(d) {
+        const diff = diffLyrics(d.original_lyrics, d.modified_lyrics);
+        return '<tr>' +
+          '<td style="vertical-align:middle;text-align:center;">' + d.original_language + '</td>' +
+          '<td style="vertical-align:middle;text-align:center;"><span class="task-tag task-' + d.edit_task + '">' + TASK_LABELS[d.edit_task] + '</span></td>' +
+          '<td style="vertical-align:middle;text-align:center;">' + audioCell(d.original_melody) + '</td>' +
+          '<td style="vertical-align:middle;text-align:center;">' + audioCell(d.timbre_reference) + '</td>' +
+          '<td style="vertical-align:middle;text-align:center;"><span style="display:inline-block;width:125px;background:#f1f3f4;padding:6px 12px;border-radius:6px;font-size:0.9rem;color:#333;line-height:1.6;text-align:left;">' + diff.origHtml + '</span></td>' +
+          '<td style="vertical-align:middle;text-align:center;"><span style="display:inline-block;width:125px;background:#f1f3f4;padding:6px 12px;border-radius:6px;font-size:0.9rem;color:#333;line-height:1.6;text-align:left;">' + diff.modHtml + '</span></td>' +
+          '<td style="vertical-align:middle;text-align:center;">' + audioCell(d.vevo_path) + '</td>' +
+          '<td style="vertical-align:middle;text-align:center;">' + audioCell(d.ours_path) + '</td>' +
+          '</tr>';
+      }
+
+      function render(filter) {
+        currentFilter = filter;
+        const tbody = document.getElementById(tbodyId);
+        const items = filter === 'all' ? data : data.filter(d => d.edit_task === filter);
+        const showItems = expanded ? items : items.slice(0, DEFAULT_SHOW);
+        tbody.innerHTML = showItems.map(buildRow).join('');
+
+        // Toggle button
+        const toggleId = 'toggle-container-' + tbodyId;
+        let toggleContainer = document.getElementById(toggleId);
+        if (!toggleContainer) {
+          toggleContainer = document.createElement('div');
+          toggleContainer.id = toggleId;
+          toggleContainer.style.cssText = 'text-align:center;margin-top:12px;margin-bottom:8px;';
+          tbody.closest('.table-responsive').after(toggleContainer);
+        }
+        if (items.length > DEFAULT_SHOW) {
+          const remaining = items.length - DEFAULT_SHOW;
+          toggleContainer.innerHTML = expanded
+            ? '<button class="filter-btn toggle-btn" style="min-width:160px;">Collapse ▲</button>'
+            : '<button class="filter-btn toggle-btn" style="min-width:160px;">Expand more (' + remaining + ' items)▼</button>';
+          toggleContainer.querySelector('.toggle-btn').addEventListener('click', () => {
+            expanded = !expanded;
+            render(currentFilter);
+          });
+        } else {
+          toggleContainer.innerHTML = '';
+        }
+      }
+
+      // Bind filter buttons
+      document.querySelectorAll('#' + filterBarId + ' .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#' + filterBarId + ' .filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          expanded = false;
+          render(btn.dataset.filter);
+        });
+      });
+
+      // Initial render
+      render('all');
+    }
+
+    // Initialize both sections
+    createSectionController(DATA_Sing_Edit, 'sing-edit-body', 'filter-bar-sing-edit');
+    createSectionController(DATA_Melody_Control, 'melody-control-body', 'filter-bar-melody-control');
+  </script>
+</body>
+
+</html>
