@@ -195,7 +195,78 @@
         <sup>1</sup> Audio, Speech and Language Processing Group (ASLP@NPU), School of Computer Science, Northwestern Polytechnical University, China<br>
         <sup>2</sup> AI Lab, GiantNetwork, China
       </p>
+
+<div class="demo-container">
+  <h2>Demo Video</h2>
+
+  <div class="tabs" style="justify-content: center;">
+    <button class="tab active" onclick="switchTab('bilibili', this)">
+      Bilibili
+    </button>
+    <button class="tab" onclick="switchTab('youtube', this)">
+      YouTube
+    </button>
+  </div>
+
+  <div style="max-width:70%; margin:0 auto;">
+    <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden;">
+      <iframe id="video-frame"
+        src="https://player.bilibili.com/player.html?bvid=BV1zPDSBhEkz&autoplay=0&high_quality=1"
+        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+        allowfullscreen
+        scrolling="no">
+      </iframe>
     </div>
+  </div>
+</div>
+
+<style>
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .tab {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  .tab.active {
+    background: #00a1d6;
+    color: #fff;
+    border-color: #00a1d6;
+  }
+</style>
+
+<script>
+  const videos = {
+    bilibili: 'https://player.bilibili.com/player.html?bvid=BV1zPDSBhEkz&autoplay=0&high_quality=1',
+    youtube: 'https://www.youtube.com/embed/ktjJFS5R3Dk'
+  };
+
+  function switchTab(platform, btn) {
+    document.getElementById('video-frame').src = videos[platform];
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.remove('active');
+      t.style.background = '#f5f5f5';
+      t.style.color = '#333';
+      t.style.borderColor = '#ccc';
+    });
+    btn.classList.add('active');
+    btn.style.background = platform === 'bilibili' ? '#00a1d6' : '#ff0000';
+    btn.style.color = '#fff';
+    btn.style.borderColor = platform === 'bilibili' ? '#00a1d6' : '#ff0000';
+
+    document.getElementById('youtube-tip').style.display =
+      platform === 'youtube' ? 'block' : 'none';
+  }
+</script>
+    </div>
+
 
     <!-- ==================== Abstract ==================== -->
     <h2 id="abstract" style="text-align: center;">Abstract<a name="abstract"></a></h2>
